@@ -12,13 +12,36 @@ This analysis will use a neural network to provide Alphabet Soup with a binary c
 - The "EIN" and "NAME" columns were identified as not having valuable information to the classifications, and the columns were removed.
 
 #### Compiling, Training, and Evaluating the Model
-- Initially, two hidden layers were usesd for the model. The first layer used 80 neurons and the second used 30. Both layers used the relu function.
+- Initially, two hidden layers were usesd for the model. The first layer used 80 neurons and the second used 30. Both layers used the relu function .</br>
+    ```
+    # Define the model - deep neural net, i.e., the number of input features and hidden nodes for each layer.
+number_input_features = len(X_train[0])
+hidden_nodes_layer1 =  100
+hidden_nodes_layer2 = 40
+
+nn = tf.keras.models.Sequential()
+
+# First hidden layer
+nn.add(tf.keras.layers.Dense(units=hidden_nodes_layer1, input_dim=number_input_features, activation="relu"))
+
+# Second hidden layer
+nn.add(tf.keras.layers.Dense(units=hidden_nodes_layer2, activation="relu"))
+
+# Output layer
+nn.add(tf.keras.layers.Dense(units=1, activation="sigmoid"))
+
+# Check the structure of the model
+nn.summary()
+    ```
+
 - The initial model and all three subsequent optimization attempts were unable to achieve the target model performance.
 - Three optimization attempts were made: 
-    -  In the first optimization attempt, the number of neurons in each layer was increased, which increased accuracy from 47.6% to 66.1%. 
+    -  In the first optimization attempt, the number of neurons in each layer was increased, which increased accuracy from 47.6% with the initial model to 66.1%.</br>
+    ## Images
+![Alt Text](https://github.com/lyanneagger/Neural_Network_Charity_Analysis/blob/main/Resources/OptAtt1_results.png "Results for First Optimization Attempt")</br>
     -  The second optimization attempt added an additional layer, which reduced the accuracy to 53.6%. 
     -  The third optimization attempt removed the third layer and changed the activation function of the second layer from relu to tanh, which further decreased the accuracy to 49.2%.
 
 ## Summary
 
-Summarize the overall results of the deep learning model. Include a recommendation for how a different model could solve this classification problem, and explain your recommendation.
+The initial optimization attempt achieved the most accurate results at 66.1%. Further increasing neurons within those two layers may yield improved results. Additionally, the dataset may contain potentially noisy variables. An attempt at removing some of the noisy data may produce more accurate results as well.
